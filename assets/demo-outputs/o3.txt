@@ -1,0 +1,13 @@
+# Citation gap for citedby.eu
+
+## best tools to check if ChatGPT cites my website
+Answers read: 1. citedby.eu cited in 0 of 1.
+
+| Domain | Cited in | Page types | Example URL |
+|---|---|---|---|
+| zeevron.com | 1 of 1 | page x1 | https://www.zeevron.com/insights/is-chatgpt-citing-my-website |
+| visiblyrank.com | 1 of 1 | blog post x6 | https://visiblyrank.com/blog/how-to-see-if-your-website-is-cited-in-chatgpt/ |
+| wellows.com | 1 of 1 | free tool x3 | https://wellows.com/tools/chatgpt-visibility-tracker/ |
+| citeflow.io | 1 of 1 | blog post x2 | https://www.citeflow.io/blog/chatgpt-citation-tracking-tools |
+| frase.io | 1 of 1 | blog post x2 | https://www.frase.io/blog/how-to-check-if-chatgpt-cites-your-brand |
+| get-ryze.ai | 1 of 1 | blog post x1 | https://www.get-ryze.ai/blog/best-tools-to-track-citations-in-chatgpt-and-claude |

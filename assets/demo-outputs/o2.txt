@@ -1,0 +1,4 @@
+info    401 line(s), 31 section(s), 304 link(s)
+ok      well formed
+
+Note: there is no published evidence that AI assistants read llms.txt. Valid is not the same as used.

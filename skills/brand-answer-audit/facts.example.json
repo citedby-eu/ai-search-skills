@@ -1,0 +1,9 @@
+{
+  "brand": "Acme",
+  "facts": [
+    {"key": "Pro plan price", "kind": "price", "about": ["pro"], "expect": ["€49"]},
+    {"key": "Free plan exists", "about": ["free"], "expect": ["free"]},
+    {"key": "No lifetime plan", "about": ["lifetime"], "expect": ["no lifetime"], "forbid": ["lifetime deal", "lifetime license"]},
+    {"key": "What it does", "about": ["is a", "tool", "software"], "expect": ["invoicing"]}
+  ]
+}

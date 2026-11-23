@@ -1,0 +1,25 @@
+https://nytimes.com/  (robots.txt status: 200; 70 group(s) read)
+
+crawler             role        robots
+OAI-SearchBot       search      blocked
+ChatGPT-User        user-fetch  blocked
+GPTBot              training    blocked
+Claude-SearchBot    search      blocked
+Claude-User         user-fetch  blocked
+ClaudeBot           training    blocked
+PerplexityBot       search      blocked
+Perplexity-User     user-fetch  blocked
+Google-Extended     training    blocked
+Applebot-Extended   training    blocked
+CCBot               training    blocked
+Bytespider          training    blocked
+Amazonbot           search      partial
+meta-externalagent  training    blocked
+Googlebot           baseline    partial
+Bingbot             baseline    partial
+
+ChatGPT search cannot index this path: OAI-SearchBot is blocked in robots.txt.
+Perplexity cannot index this path: PerplexityBot is blocked.
+Claude search cannot index this path: Claude-SearchBot is blocked.
+
+Not measured: whether a bot obeys the file, or what any assistant cites. Full audit: https://citedby.eu/?utm_source=github&utm_medium=repo&utm_campaign=ai-search-skills
