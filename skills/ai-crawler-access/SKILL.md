@@ -22,7 +22,7 @@ No dependencies. It reads `/robots.txt`, applies RFC 9309 matching (named group 
 ## Read the result in this order
 
 1. `OAI-SearchBot`, `PerplexityBot`, `Claude-SearchBot` = the **search** crawlers. Blocked here means the assistant cannot list or cite the page from its index.
-2. `ChatGPT-User`, `Perplexity-User`, `Claude-User` = fetches **on behalf of a user** who pastes your link or asks about you.
+2. `ChatGPT-User`, `Perplexity-User`, `Claude-User` = fetches **on behalf of a user** who pastes your link or asks about you. Perplexity states that Perplexity-User generally ignores robots.txt; treat its verdict as what the file says, not as control.
 3. `GPTBot`, `ClaudeBot`, `Google-Extended`, `Applebot-Extended`, `CCBot`, `Bytespider`, `meta-externalagent` = **training** or dataset crawlers. Blocking them is a policy choice and does not remove you from ChatGPT search. Do not "fix" it by default; ask the owner which they want.
 4. `Googlebot`, `Bingbot` = baseline. ChatGPT search and Copilot lean on Bing results; AI Overviews use Google's index.
 5. A `live` status of 403 with an `allowed` robots verdict means a firewall or CDN bot rule overrides the file. That is the fix to hand over, with the rule name if you can find it.

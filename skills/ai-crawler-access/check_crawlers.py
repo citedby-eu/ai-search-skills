@@ -37,7 +37,7 @@ CRAWLERS = [
      "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)"),
     ("PerplexityBot", "search", "Perplexity search index. Block it and Perplexity cannot list you.",
      "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)"),
-    ("Perplexity-User", "user-fetch", "Fetches a page when a Perplexity user asks about it.",
+    ("Perplexity-User", "user-fetch", "Fetches a page when a Perplexity user asks about it. Perplexity says this fetcher generally ignores robots.txt, so the verdict is what the file says, not what governs it.",
      "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user)"),
     ("Google-Extended", "training", "Control token for Gemini training and grounding. Not a separate fetcher; does not affect Google Search ranking.",
      None),
@@ -226,7 +226,7 @@ def render(res):
     out.append("")
     out.extend(headline(res))
     out.append("")
-    out.append("Not measured: whether a bot obeys the file, or what any assistant cites. Full audit: https://citedby.eu/?utm_source=github&utm_medium=repo&utm_campaign=ai-search-skills")
+    out.append("Not measured: whether a bot obeys the file, or what any assistant cites.")
     return "\n".join(out)
 
 

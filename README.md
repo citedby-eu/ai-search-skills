@@ -64,4 +64,4 @@ python3 -m unittest discover -s tests
 
 Issues and pull requests welcome. Open one if a check is wrong on your site: we count a check that is false on more than 1 page in 10 as not measured.
 
-MIT licence. Maintained by the CitedBy team (hello@citedby.eu).
+MIT licence. Maintained by the CitedBy team (hello@citedby.eu). Crawler roles follow each vendor's public bot documentation (OpenAI, Anthropic, Perplexity); check them, they change.
