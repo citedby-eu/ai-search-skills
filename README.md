@@ -16,6 +16,8 @@ One skill: `npx skills add citedby-eu/ai-search-skills --skill ai-crawler-access
 
 Then ask your agent: *"Run the ai-visibility-audit skill on example.com."*
 
+No agent? The crawler-access check also runs in a browser, with the date of the check on the result: [citedby.eu/tools/ai-crawler-check](https://citedby.eu/tools/ai-crawler-check?utm_source=github&utm_medium=repo&utm_campaign=ai-search-skills&utm_content=crawler_tool). If your ChatGPT visibility dropped on one date, [check access first](https://citedby.eu/blog/chatgpt-visibility-dropped-to-zero?utm_source=github&utm_medium=repo&utm_campaign=ai-search-skills&utm_content=visibility_zero).
+
 ## The skills
 
 | Skill | What it does | Script |
