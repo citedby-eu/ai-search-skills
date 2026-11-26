@@ -14,10 +14,17 @@ First question of every AI-visibility job: can the crawlers that build AI answer
 ## Run
 
 ```bash
-python3 skills/ai-crawler-access/check_crawlers.py <domain> [--path /pricing] [--no-probe] [--json]
+python3 skills/ai-crawler-access/check_crawlers.py <domain> [--path /pricing] [--json]
+
+# opt-in, only for a site you own or have permission to test:
+python3 skills/ai-crawler-access/check_crawlers.py <domain> --live-probe --confirm-permission
 ```
 
-No dependencies. It reads `/robots.txt`, applies RFC 9309 matching (named group beats `*`, longest rule wins, Allow wins a tie, `*` and `$` wildcards) and gives one verdict per crawler: `allowed`, `partial` (this path is open, others are closed) or `blocked`. Unless `--no-probe`, it also sends one GET per crawler user-agent string to the path and reports servers that answer 401/403/406/429/503 to a bot string but 200 to a plain client. Only probe sites you own or may test.
+No dependencies. **Default: robots.txt only.** It makes one request, for `/robots.txt`, identified as `ai-search-skills`, applies RFC 9309 matching (named group beats `*`, longest rule wins, Allow wins a tie, `*` and `$` wildcards) and gives one verdict per crawler: `allowed`, `partial` (this path is open, others are closed) or `blocked`.
+
+**Live probe, opt-in.** `--live-probe` additionally sends one GET per crawler user-agent string to the path and reports servers that answer 401/403/406/429/503 to a bot string but 200 to a plain client. It refuses to run without `--confirm-permission`, which means: you own this site or have permission to test it. Agents using this skill must not add that flag on their own; ask the user first.
+
+**What the live column is not.** It is the answer to a request that only carries the crawler's user-agent string, sent from your machine. It is not what the real crawler sees: the real bots come from the vendors' IP ranges, and a firewall that verifies bots by IP can answer them differently. Treat a mismatch as a lead to check in the CDN or firewall settings, not as proof.
 
 ## Read the result in this order
 
@@ -29,7 +36,7 @@ No dependencies. It reads `/robots.txt`, applies RFC 9309 matching (named group 
 
 ## Report
 
-Write `ai-visibility/01-crawler-access.md`: the table, the three or fewer fixes in order of impact, and the exact robots.txt lines to change. Say what you did not measure: whether a bot obeys the file, and whether any assistant cites the site. The probe uses the documented user-agent strings from your IP, so a firewall that verifies bots by IP range may answer differently to the real bots.
+Write `ai-visibility/01-crawler-access.md`: the table, the three or fewer fixes in order of impact, and the exact robots.txt lines to change. Say what you did not measure: whether a bot obeys the file, and whether any assistant cites the site. If you ran the live probe, say that it used user-agent strings from your IP, so a firewall that verifies bots by IP range may answer differently to the real bots.
 
 ## Never
 

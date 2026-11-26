@@ -22,7 +22,7 @@ No agent? The crawler-access check also runs in a browser, with the date of the 
 
 | Skill | What it does | Script |
 |---|---|---|
-| [`ai-crawler-access`](skills/ai-crawler-access/SKILL.md) | One robots.txt verdict per AI crawler (search vs user-fetch vs training), RFC 9309 matching, plus what your server answers to each bot's user-agent string (catches CDN/firewall blocks that robots.txt hides) | `check_crawlers.py` |
+| [`ai-crawler-access`](skills/ai-crawler-access/SKILL.md) | One robots.txt verdict per AI crawler (search vs user-fetch vs training), RFC 9309 matching, reads robots.txt only by default; an opt-in `--live-probe --confirm-permission` (own site or permission to test) also shows what your server answers to each bot's user-agent string, a lead for CDN/firewall blocks, not what the real crawler sees | `check_crawlers.py` |
 | [`llms-txt`](skills/llms-txt/SKILL.md) | Validate an llms.txt (soft-404 HTML, missing H1, relative links, dead links) or generate one from your sitemap | `llms_txt.py` |
 | [`schema-check`](skills/schema-check/SKILL.md) | The JSON-LD a crawler without JavaScript sees; missing required/recommended properties on Organization, Product/Offer, Article, WebSite, FAQPage | `schema_check.py` |
 | [`citation-probe`](skills/citation-probe/SKILL.md) | Ask assistants your buyer questions N times with web search on, log who is named and which URLs are cited (JSONL), report "named in X of N" | `probe.py` |

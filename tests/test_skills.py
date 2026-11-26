@@ -75,6 +75,48 @@ class Robots(unittest.TestCase):
         self.assertEqual(self.v("", "GPTBot"), "allowed")
 
 
+class CrawlerProbeOptIn(unittest.TestCase):
+    """The live user-agent probe is opt-in: default reads robots.txt only."""
+
+    def setUp(self):
+        self.calls = []
+        self._orig = cc.fetch
+        def fake(url, ua, timeout=15):
+            self.calls.append((url, ua))
+            return (200, "User-agent: *\nDisallow:\n", url) if url.endswith("/robots.txt") else (200, "ok", url)
+        cc.fetch = fake
+
+    def tearDown(self):
+        cc.fetch = self._orig
+
+    def test_default_fetches_only_robots_txt_with_our_ua(self):
+        res = cc.run("example.com")
+        self.assertEqual([c[0] for c in self.calls], ["https://example.com/robots.txt"])
+        self.assertEqual(self.calls[0][1], cc.OUR_UA)
+        self.assertNotIn("live_status", res["crawlers"][0])
+
+    def test_main_default_sends_no_bot_ua(self):
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            cc.main(["example.com"])
+        self.assertEqual(len(self.calls), 1)
+
+    def test_live_probe_without_confirmation_exits_and_sends_nothing(self):
+        import contextlib, io
+        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as cm:
+            cc.main(["example.com", "--live-probe"])
+        self.assertEqual(cm.exception.code, 2)
+        self.assertEqual(self.calls, [])
+
+    def test_live_probe_with_confirmation_probes_each_crawler(self):
+        import contextlib, io
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cc.main(["example.com", "--live-probe", "--confirm-permission"])
+        self.assertGreater(len(self.calls), 5)
+        self.assertIn("not what the real crawler sees", buf.getvalue())
+
+
 class Llms(unittest.TestCase):
     def test_h1_only_is_valid(self):
         e, w, _ = lt.validate_text("# Acme\n")

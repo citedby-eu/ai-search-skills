@@ -153,7 +153,7 @@ def normalise(target):
     return p.scheme + "://" + p.netloc
 
 
-def run(target, path="/", probe=True):
+def run(target, path="/", probe=False):
     base = normalise(target)
     status, body, final = fetch(base + "/robots.txt", OUR_UA)
     out = {"site": base, "path": path, "robots_status": status, "crawlers": []}
@@ -227,6 +227,11 @@ def render(res):
     out.extend(headline(res))
     out.append("")
     out.append("Not measured: whether a bot obeys the file, or what any assistant cites.")
+    if probed:
+        out.append("The live column is the answer to a request that only carries the crawler's user-agent string, sent from this machine. "
+                   "It is not what the real crawler sees: firewalls that verify bots by IP range can answer the real bot differently.")
+    else:
+        out.append("Live user-agent probe not run (opt-in: --live-probe --confirm-permission, only for a site you own or may test).")
     return "\n".join(out)
 
 
@@ -234,10 +239,17 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("site")
     ap.add_argument("--path", default="/", help="path to test (default /)")
-    ap.add_argument("--no-probe", action="store_true", help="read robots.txt only, send no bot user-agent requests")
+    ap.add_argument("--live-probe", action="store_true",
+                    help="OPT-IN. Also send one GET per crawler user-agent string to the site. Needs --confirm-permission.")
+    ap.add_argument("--confirm-permission", action="store_true",
+                    help="state that you own the site or have permission to test it (required with --live-probe)")
+    ap.add_argument("--no-probe", action="store_true", help=argparse.SUPPRESS)  # old flag, now the default, kept so old calls still work
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
-    res = run(a.site, a.path, probe=not a.no_probe)
+    if a.live_probe and not a.confirm_permission:
+        ap.error("--live-probe sends requests with each AI crawler's user-agent string to the site. "
+                 "Add --confirm-permission only if you own this site or have permission to test it.")
+    res = run(a.site, a.path, probe=a.live_probe and not a.no_probe)
     print(json.dumps(res, indent=2) if a.json else render(res))
     return 0
 
